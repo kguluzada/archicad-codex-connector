@@ -133,6 +133,24 @@ test('cross-site login/logout and oversize credentials are refused', async () =>
   assert.equal((await request('/api/portal?action=logout', { method: 'POST' })).status, 403);
 });
 
+test('embedded-browser opaque origins require strict same-origin Fetch Metadata', async () => {
+  for (const Origin of ['null', undefined]) {
+    const headers = { 'Sec-Fetch-Site': 'same-origin' };
+    if (Origin === undefined) {
+      const response = await request('/api/portal?action=login', {method:'POST', body:'password=test-password', headers});
+      assert.equal(response.status, 303);
+    } else {
+      assert.equal((await signIn({...headers, Origin})).status, 303);
+    }
+  }
+  for (const fetchSite of ['cross-site', 'same-site', 'none', undefined]) {
+    const headers = {Origin:'null'};
+    if (fetchSite) headers['Sec-Fetch-Site'] = fetchSite;
+    assert.equal((await signIn(headers)).status, 403);
+  }
+  assert.equal((await signIn({Origin:'https://evil.example', 'Sec-Fetch-Site':'same-origin'})).status, 403);
+});
+
 test('logout clears the browser cookie and GET cannot log out', async () => {
   assert.equal((await request('/api/portal?action=logout')).status, 405);
   const response = await request('/api/portal?action=logout', { method: 'POST', headers: { Cookie: await signedCookie(), Origin: 'https://download.kaan.win' } });

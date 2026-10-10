@@ -105,7 +105,10 @@ export default async function handler(req, res) {
     html(req, res, 405, login('This request method is not supported.'));
     return;
   }
-  if (req.method === 'POST' && (req.headers.origin !== ORIGIN || req.headers['sec-fetch-site'] === 'cross-site')) {
+  // Embedded browsers may send Origin: null. Accept that only with browser-supplied same-origin metadata.
+  const fetchSite = req.headers['sec-fetch-site'];
+  const sameOrigin = req.headers.origin === ORIGIN || ((!req.headers.origin || req.headers.origin === 'null') && fetchSite === 'same-origin');
+  if (req.method === 'POST' && (!sameOrigin || fetchSite === 'cross-site')) {
     html(req, res, 403, login('Request denied. Open this site directly and try again.'));
     return;
   }
