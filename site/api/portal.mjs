@@ -12,7 +12,7 @@ const FILES = [
 ];
 
 function page(title, content) {
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet"><title>${title} — Kaan Downloads</title><link rel="stylesheet" href="/styles.css"></head><body><header><a class="brand" href="/"><span>K</span>Kaan Downloads</a><span class="eyebrow portal-label">Private access</span></header><main class="page">${content}</main><footer><p>Kaan Downloads · Archicad Connector 0.1.0</p><a href="https://kaan.win">kaan.win ↗</a></footer></body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet"><title>${title} — Kaan Downloads</title><link rel="icon" href="/connector-logo.svg" type="image/svg+xml"><link rel="stylesheet" href="/styles.css"></head><body class="download-portal"><header><a class="brand portal-brand" href="/"><img src="/connector-logo.svg" alt="Archicad Connector logo" width="44" height="44"><div><strong>Archicad Connector</strong><small>Downloads</small></div></a><span class="eyebrow portal-label">Private access</span></header><main class="page">${content}</main><footer class="portal-footer"><p>Archicad Connector · v0.1.0</p><p class="coming-soon"><span aria-hidden="true"></span>Coming soon</p><a href="https://kaan.win">kaan.win ↗</a></footer></body></html>`;
 }
 
 function login(message = '') {
@@ -93,7 +93,7 @@ export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'private, no-store');
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('Referrer-Policy', 'no-referrer');
-  res.setHeader('Content-Security-Policy', "default-src 'none'; style-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
+  res.setHeader('Content-Security-Policy', "default-src 'none'; img-src 'self'; style-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'");
   const url = new URL(req.url, ORIGIN);
   const action = url.searchParams.get('action');
   if (req.headers.host !== 'download.kaan.win') {
