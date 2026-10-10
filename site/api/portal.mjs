@@ -1,5 +1,4 @@
 import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
 import { createHmac, randomBytes, scryptSync, timingSafeEqual } from 'node:crypto';
 
 const ORIGIN = 'https://download.kaan.win';
@@ -135,7 +134,7 @@ export default async function handler(req, res) {
     if (action === 'home') { html(req, res, 200, home()); return; }
     const name = url.searchParams.get('file');
     if (!FILES.some(([file]) => file === name)) { html(req, res, 404, page('Not found', '<h1>File not found.</h1><a href="/">Back to downloads →</a>')); return; }
-    const data = await readFile(join(process.cwd(), 'private', name));
+    const data = await readFile(new URL(`../private/${name}`, import.meta.url));
     res.statusCode = 200;
     res.setHeader('Content-Type', name.endsWith('.zip') ? 'application/zip' : name === 'SHA256SUMS' ? 'text/plain; charset=utf-8' : 'application/octet-stream');
     res.setHeader('Content-Disposition', `attachment; filename="${name}"`);
