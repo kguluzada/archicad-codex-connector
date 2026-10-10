@@ -86,17 +86,21 @@ test('valid login sets secure host-only cookie and dashboard has file/documentat
   assert.doesNotMatch(html, /test-password/);
 });
 
-test('authenticated artifacts match exact bytes and unlisted/traversal names are refused', async () => {
+test('authenticated artifacts match exact bytes from a different working directory; unlisted/traversal names are refused', async () => {
   const Cookie = await signedCookie();
-  for (const name of ['archicad-connector-0.1.0-windows.zip', 'archicad_codex_connector-0.1.0-py3-none-any.whl', 'archicad_codex_connector-0.1.0.tar.gz', 'SHA256SUMS']) {
-    const response = await request('/api/portal?action=download&file=' + name, { headers: { Cookie } });
-    assert.equal(response.status, 200);
-    assert.equal(response.headers.get('content-disposition'), `attachment; filename="${name}"`);
-    assert.deepEqual(Buffer.from(await response.arrayBuffer()), await readFile('private/' + name));
-  }
-  for (const file of ['../api/portal.mjs', 'private/SHA256SUMS', 'unlisted.zip']) {
-    assert.equal((await request('/api/portal?action=download&file=' + encodeURIComponent(file), { headers: { Cookie } })).status, 404);
-  }
+  const directory = process.cwd();
+  process.chdir(initialDirectory);
+  try {
+    for (const name of ['archicad-connector-0.1.0-windows.zip', 'archicad_codex_connector-0.1.0-py3-none-any.whl', 'archicad_codex_connector-0.1.0.tar.gz', 'SHA256SUMS']) {
+      const response = await request('/api/portal?action=download&file=' + name, { headers: { Cookie } });
+      assert.equal(response.status, 200);
+      assert.equal(response.headers.get('content-disposition'), `attachment; filename="${name}"`);
+      assert.deepEqual(Buffer.from(await response.arrayBuffer()), await readFile(new URL('../private/' + name, import.meta.url)));
+    }
+    for (const file of ['../api/portal.mjs', 'private/SHA256SUMS', 'unlisted.zip']) {
+      assert.equal((await request('/api/portal?action=download&file=' + encodeURIComponent(file), { headers: { Cookie } })).status, 404);
+    }
+  } finally { process.chdir(directory); }
 });
 
 test('forged, altered, expired and overlong sessions cannot access downloads', async () => {
