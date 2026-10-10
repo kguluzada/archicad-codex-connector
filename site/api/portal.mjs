@@ -16,7 +16,7 @@ function page(title, content) {
 }
 
 function login(message = '') {
-  return page('Sign in', `<div class="login-layout"><div><p class="eyebrow">Your files, in one place</p><h1>Welcome back.</h1><p class="intro">Sign in to choose your connector downloads.</p><p class="fine">Use your download-site username and password.</p></div><form class="login-form" method="post" action="/login">${message ? `<p class="login-error" role="alert">${message}</p>` : ''}<label for="username">Username</label><input id="username" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required maxlength="30"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="1024"><button class="button" type="submit">Sign in →</button><p class="fine">Access is limited to the download-site owner.</p></form></div>`);
+  return page('Sign in', `<div class="login-layout"><div><p class="eyebrow">Your files, in one place</p><h1>Welcome back.</h1><p class="intro">Sign in to choose your connector downloads.</p><p class="fine">Enter the shared download password.</p></div><form class="login-form" method="post" action="/login">${message ? `<p class="login-error" role="alert">${message}</p>` : ''}<label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required minlength="8" maxlength="1024"><button class="button" type="submit">Sign in →</button><p class="fine">Access is available to people with the shared password.</p></form></div>`);
 }
 
 function home() {
@@ -30,7 +30,7 @@ function tokenFrom(req) {
 
 function settings() {
   const auth = JSON.parse(process.env.DOWNLOAD_AUTH || '{}');
-  if (!/^[a-z0-9_]{3,30}$/.test(auth.username) || !/^[a-f0-9]{32}$/.test(auth.salt) || !/^[a-f0-9]{128}$/.test(auth.hash) || !/^[a-f0-9]{64}$/.test(auth.secret)) throw new Error('Authentication not configured');
+  if (!/^[a-f0-9]{32}$/.test(auth.salt) || !/^[a-f0-9]{128}$/.test(auth.hash) || !/^[a-f0-9]{64}$/.test(auth.secret)) throw new Error('Authentication not configured');
   return auth;
 }
 
@@ -83,9 +83,9 @@ async function credentials(req) {
   if (Buffer.isBuffer(body)) body = body.toString('utf8');
   if (typeof body === 'string') body = Object.fromEntries(new URLSearchParams(body));
   if (!body || typeof body !== 'object' || Buffer.byteLength(JSON.stringify(body)) > 4096) return null;
-  const { username, password } = body;
-  if (typeof username !== 'string' || !/^[a-z0-9_]{3,30}$/i.test(username) || typeof password !== 'string' || password.length < 8 || password.length > 1024) return null;
-  return { username: username.toLowerCase(), password };
+  const { password } = body;
+  if (typeof password !== 'string' || password.length < 8 || password.length > 1024) return null;
+  return { password };
 }
 
 export default async function handler(req, res) {
@@ -114,10 +114,10 @@ export default async function handler(req, res) {
     if (action === 'login') {
       if (req.method !== 'POST') { html(req, res, 200, login()); return; }
       const body = await credentials(req);
-      if (!body) { html(req, res, 400, login('Enter your username and password.')); return; }
+      if (!body) { html(req, res, 400, login('Enter the shared password.')); return; }
       const auth = settings();
       const digest = scryptSync(body.password, Buffer.from(auth.salt, 'hex'), 64);
-      if (!timingSafeEqual(digest, Buffer.from(auth.hash, 'hex')) || body.username !== auth.username) { html(req, res, 401, login('Unable to sign in with these credentials.')); return; }
+      if (!timingSafeEqual(digest, Buffer.from(auth.hash, 'hex'))) { html(req, res, 401, login('Unable to sign in with these credentials.')); return; }
       const payload = Buffer.from(JSON.stringify({ exp: Date.now() + SESSION_SECONDS * 1000, nonce: randomBytes(16).toString('base64url') })).toString('base64url');
       const session = payload + '.' + signature(payload, auth);
       cookie(res, session); redirect(res, '/'); return;

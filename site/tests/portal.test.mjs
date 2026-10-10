@@ -6,7 +6,7 @@ import { resolve } from 'node:path';
 import { createHmac, scryptSync } from 'node:crypto';
 import handler from '../api/portal.mjs';
 
-const auth = { username: 'kaan', salt: 'ab'.repeat(16), secret: 'cd'.repeat(32) };
+const auth = { salt: 'ab'.repeat(16), secret: 'cd'.repeat(32) };
 auth.hash = scryptSync('test-password', Buffer.from(auth.salt, 'hex'), 64).toString('hex');
 let server, base;
 const initialDirectory = process.cwd();
@@ -40,7 +40,7 @@ function request(path, options = {}) {
     req.end(options.body);
   });
 }
-function signIn(headers = {}, body = 'username=kaan&password=test-password') {
+function signIn(headers = {}, body = 'password=test-password') {
   return request('/api/portal?action=login', { method: 'POST', body, headers: { Origin: 'https://download.kaan.win', 'Content-Type': 'application/x-www-form-urlencoded', ...headers } });
 }
 async function signedCookie() {
@@ -66,6 +66,7 @@ test('anonymous home/files redirect and login has robots metadata and password f
   const html = await response.text();
   assert.match(html, /name="robots" content="noindex/);
   assert.match(html, /type="password"/);
+  assert.doesNotMatch(html, /name="username"/);
   assert.match(html, /method="post" action="\/login"/);
   assert.doesNotMatch(html, /archicad-connector-0.1.0-windows.zip/);
 });
@@ -113,8 +114,8 @@ test('forged, altered, expired and overlong sessions cannot access downloads', a
   }
 });
 
-test('wrong username/password do not create a session; rotation invalidates existing sessions', async () => {
-  for (const body of ['username=other&password=test-password', 'username=kaan&password=wrong-password']) {
+test('wrong passwords do not create a session; rotation invalidates existing sessions', async () => {
+  for (const body of ['password=wrong-password', 'password=another-wrong-password']) {
     const response = await signIn({}, body);
     assert.equal(response.status, 401);
     assert.equal(response.headers.get('set-cookie'), null);
@@ -127,8 +128,8 @@ test('wrong username/password do not create a session; rotation invalidates exis
 test('cross-site login/logout and oversize credentials are refused', async () => {
   assert.equal((await signIn({ Origin: 'https://evil.example' })).status, 403);
   assert.equal((await signIn({ 'Sec-Fetch-Site': 'cross-site' })).status, 403);
-  assert.equal((await signIn({}, 'username=kaan&password=' + 'a'.repeat(5000))).status, 400);
-  assert.equal((await signIn({}, 'username=kaan&password=short')).status, 400);
+  assert.equal((await signIn({}, 'password=' + 'a'.repeat(5000))).status, 400);
+  assert.equal((await signIn({}, 'password=short')).status, 400);
   assert.equal((await request('/api/portal?action=logout', { method: 'POST' })).status, 403);
 });
 
