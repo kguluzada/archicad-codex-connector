@@ -12,6 +12,7 @@
       "has": [{"type": "host", "value": "download.kaan.win"}],
       "destination": "/api/portal?action=home"
     },
+    {"source": "/", "destination": "/overview.html"},
     {"source": "/login", "destination": "/api/portal?action=login"},
     {"source": "/logout", "destination": "/api/portal?action=logout"},
     {"source": "/downloads/:file", "destination": "/api/portal?action=download&file=:file"}

@@ -159,6 +159,8 @@ test('alternate host redirects are fixed; HEAD authenticates but has no file bod
 });
 
 test('deployment config places files outside output and declares noindex', async () => {
+  // Vercel serves an existing index.html before applying host-specific rewrites.
+  await assert.rejects(readFile('public/index.html'), {code: 'ENOENT'});
   const config = JSON.parse(await readFile('vercel.json', 'utf8'));
   assert.equal(config.outputDirectory, 'public');
   assert.equal(config.functions['api/portal.mjs'].includeFiles, 'private/**');
