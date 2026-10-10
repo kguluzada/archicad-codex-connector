@@ -3,23 +3,24 @@
   "framework": null,
   "buildCommand": "",
   "installCommand": "",
-  "outputDirectory": ".",
+  "outputDirectory": "public",
   "cleanUrls": true,
-  "redirects": [
+  "functions": {"api/portal.mjs": {"includeFiles": "private/**", "maxDuration": 30}},
+  "rewrites": [
     {
       "source": "/",
       "has": [{"type": "host", "value": "download.kaan.win"}],
-      "destination": "/downloads/archicad-connector-0.1.0-windows.zip",
-      "permanent": false
-    }
+      "destination": "/api/portal?action=home"
+    },
+    {"source": "/login", "destination": "/api/portal?action=login"},
+    {"source": "/logout", "destination": "/api/portal?action=logout"},
+    {"source": "/downloads/:file", "destination": "/api/portal?action=download&file=:file"}
   ],
   "headers": [
     {
-      "source": "/downloads/:file",
-      "headers": [
-        {"key": "Content-Disposition", "value": "attachment"},
-        {"key": "Cache-Control", "value": "public, max-age=0, must-revalidate"}
-      ]
+      "source": "/(.*)",
+      "has": [{"type": "host", "value": "download.kaan.win"}],
+      "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet"}, {"key": "Cache-Control", "value": "private, no-store"}]
     },
     {
       "source": "/(.*)",

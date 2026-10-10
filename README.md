@@ -4,7 +4,7 @@ A local Python MCP server using Graphisoft's HTTP JSON API and Tapir 1.7.0. Sour
 
 See [test results](docs/validation.md), [Windows setup](docs/windows.md), [capabilities](docs/capabilities.md), [architecture](docs/architecture.md), [source and license ledger](docs/sources.md), [compatibility](docs/compatibility.md), and [live acceptance checklist](docs/live-validation.md).
 
-Download the complete Windows setup ZIP at [download.kaan.win](https://download.kaan.win). The [project pages](https://archicad.kaan.win) include installation and validation details. Source, tests and releases are hosted at [kguluzada/archicad-codex-connector](https://github.com/kguluzada/archicad-codex-connector). The ZIP includes source, documentation, setup scripts and a wheel; Python, Archicad and Tapir are installed separately.
+Sign in at [download.kaan.win](https://download.kaan.win) to choose the complete Windows setup ZIP or individual files. The [project pages](https://archicad.kaan.win) include installation and validation details. Source, tests and public releases are hosted at [kguluzada/archicad-codex-connector](https://github.com/kguluzada/archicad-codex-connector). The ZIP includes source, documentation, setup scripts and a wheel; Python, Archicad and Tapir are installed separately.
 
 ## Quick start on Windows
 

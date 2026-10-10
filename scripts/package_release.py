@@ -53,11 +53,11 @@ def main():
         f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {path.name}\n" for path in (BUNDLE, WHEEL, SOURCE)
     )
     (DIST / "SHA256SUMS").write_text(checksums)
-    downloads = ROOT / "site/downloads"
+    downloads = ROOT / "site/private"
     downloads.mkdir(parents=True, exist_ok=True)
     for path in (BUNDLE, WHEEL, SOURCE, DIST / "SHA256SUMS"):
         shutil.copyfile(path, downloads / path.name)
-    print(f"Checked {len(members)} ZIP members; copied 4 release files to site/downloads")
+    print(f"Checked {len(members)} ZIP members; copied 4 release files to site/private")
 
 
 if __name__ == "__main__":
