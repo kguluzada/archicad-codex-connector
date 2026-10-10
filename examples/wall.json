@@ -1,0 +1,10 @@
+{
+  "walls": [{
+    "begCoordinate": {"x": 0.0, "y": 0.0},
+    "endCoordinate": {"x": 5.0, "y": 0.0},
+    "height": 3.0,
+    "thickness": 0.2,
+    "floorIndex": 0,
+    "zCoordinate": 0.0
+  }]
+}

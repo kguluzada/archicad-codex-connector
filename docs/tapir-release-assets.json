@@ -1,0 +1,92 @@
+{
+  "tag_name": "1.7.0",
+  "published_at": "2026-10-04T11:25:37Z",
+  "html_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/tag/1.7.0",
+  "commit": "02691b5d680b60c73317e8e49b78ab14dfd4c9d8",
+  "assets": [
+    {
+      "name": "TapirAddOn_AC25_Mac.zip",
+      "size": 1275029,
+      "digest": "sha256:fbc3518dab411de95abd445707ef69a2a33cc61d606bd0f96066b246db1b1beb",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirAddOn_AC25_Mac.zip"
+    },
+    {
+      "name": "TapirAddOn_AC25_Win.apx",
+      "size": 3624448,
+      "digest": "sha256:17b63660a86cb826653eb45d2b6a0916046ecf92faa24ed5f52d41d1f6d4e9be",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirAddOn_AC25_Win.apx"
+    },
+    {
+      "name": "TapirAddOn_AC26_Mac.zip",
+      "size": 2322994,
+      "digest": "sha256:b1820c58ee62f7052b059976f0fea6e17edda59f55e6bb2848d70f7e48a151f1",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirAddOn_AC26_Mac.zip"
+    },
+    {
+      "name": "TapirAddOn_AC26_Win.apx",
+      "size": 3844096,
+      "digest": "sha256:bd72a964be1a7b125626dc53a7451e6b1fc806e632551b338b2b38b05f3b4371",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirAddOn_AC26_Win.apx"
+    },
+    {
+      "name": "TapirAddOn_AC27_Mac.zip",
+      "size": 2258494,
+      "digest": "sha256:2ee71df8e17486f2a2fd047455d2c2b7a47b543caf99e3b66d8a8b3b03588c21",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirAddOn_AC27_Mac.zip"
+    },
+    {
+      "name": "TapirAddOn_AC27_Win.apx",
+      "size": 3988480,
+      "digest": "sha256:cf21e6cef20f2979ebf95924fe59e4adc5008f96d7509779a05062951aa05b19",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirAddOn_AC27_Win.apx"
+    },
+    {
+      "name": "TapirAddOn_AC28_Mac.zip",
+      "size": 2362498,
+      "digest": "sha256:3b85091f7d55e83c874c605454115a1a53abe83a3f571dc4792bb6ef442c91af",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirAddOn_AC28_Mac.zip"
+    },
+    {
+      "name": "TapirAddOn_AC28_Win.apx",
+      "size": 4127232,
+      "digest": "sha256:61b91971222ef0e7013734106952fdb200512de22d9b762c86fb6792e06bf413",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirAddOn_AC28_Win.apx"
+    },
+    {
+      "name": "TapirAddOn_AC29_Mac.zip",
+      "size": 2444933,
+      "digest": "sha256:260b2e01c28e734dd1c6e42bcda3911731c0b21083135300902361747288d7bb",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirAddOn_AC29_Mac.zip"
+    },
+    {
+      "name": "TapirAddOn_AC29_Win.apx",
+      "size": 4425728,
+      "digest": "sha256:8a571068ea81fe9a576b3393731aae1243365467df6b07a177e6fb42bb99c906",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirAddOn_AC29_Win.apx"
+    },
+    {
+      "name": "TapirAddOn_AC30_Mac.zip",
+      "size": 2442659,
+      "digest": "sha256:af6c3d16648a42a900a0acb785dbabd4edb41aabd3957547d91e4347beddfe7e",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirAddOn_AC30_Mac.zip"
+    },
+    {
+      "name": "TapirAddOn_AC30_Win.apx",
+      "size": 4303872,
+      "digest": "sha256:21145d75b9ef8895e192b780869b5ab5cbe6094bf9940f2025e71783a9b2b365",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirAddOn_AC30_Win.apx"
+    },
+    {
+      "name": "TapirInstaller_Mac.zip",
+      "size": 18979584,
+      "digest": "sha256:b9f50f2f1be4ec11ff4dd1cdd37754c8d0473ab4a5379895652ceebc7ef55962",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirInstaller_Mac.zip"
+    },
+    {
+      "name": "TapirInstaller_Win.exe",
+      "size": 12290585,
+      "digest": "sha256:612ec93e9fa4036cb8c9ad1571714c776d928167260a8979512b44b0dce2ea50",
+      "browser_download_url": "https://github.com/ENZYME-APD/tapir-archicad-automation/releases/download/1.7.0/TapirInstaller_Win.exe"
+    }
+  ]
+}

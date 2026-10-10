@@ -1,0 +1,6 @@
+# Substitute the actual connector checkout path on the Windows Archicad host.
+[mcp_servers.archicad]
+command = 'C:\tools\archicad-connector\.venv\Scripts\archicad-connector.exe'
+args = ['--ports', '19723-19743', '--timeout', '30', 'serve']
+startup_timeout_sec = 30
+tool_timeout_sec = 120

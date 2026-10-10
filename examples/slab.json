@@ -1,0 +1,13 @@
+{
+  "slabs": [{
+    "level": 0.0,
+    "thickness": 0.25,
+    "floorIndex": 0,
+    "polygonCoordinates": [
+      {"x": 0.0, "y": 0.0},
+      {"x": 5.0, "y": 0.0},
+      {"x": 5.0, "y": 4.0},
+      {"x": 0.0, "y": 4.0}
+    ]
+  }]
+}

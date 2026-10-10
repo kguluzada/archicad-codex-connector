@@ -1,0 +1,9 @@
+.venv/
+.research/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+dist/
+*.egg-info/
+.DS_Store
+.vercel/

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "",
+  "installCommand": "",
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{"type": "host", "value": "download.kaan.win"}],
+      "destination": "/downloads/archicad-connector-0.1.0-windows.zip",
+      "permanent": false
+    }
+  ],
+  "headers": [
+    {
+      "source": "/downloads/:file",
+      "headers": [
+        {"key": "Content-Disposition", "value": "attachment"},
+        {"key": "Cache-Control", "value": "public, max-age=0, must-revalidate"}
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [{"key": "X-Content-Type-Options", "value": "nosniff"}]
+    }
+  ]
+}
